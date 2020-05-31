@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'com.yara'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven {
+        url  "http://dl.bintray.com/africastalking/java"
+    }
+}
+
+dependencies {
+    compile 'com.africastalking:core:3.4.2'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
