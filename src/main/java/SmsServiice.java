@@ -1,5 +1,6 @@
 import com.africastalking.AfricasTalking;
 import com.africastalking.SmsService;
+import com.africastalking.sms.Message;
 import com.africastalking.sms.Recipient;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,11 +22,19 @@ public class SmsServiice {
         setServiceCode();
         AfricasTalking.initialize(API_KEY, USERNAME);
         List<Recipient> responses = sendSMS(getRecipients());
-        System.out.println(responses.size());
         for (Recipient response : responses) {
             System.out.println(String.format("{ Number : %1$s\n" +"  Cost : %2$s \n" + "  Status : %3$s \n"+"  MessageId : %4$s \n}",
                 response.number, response.cost,response.status,response.messageId));
         }
+        List<Message> allMessages = getAllSMS();
+        for(Message message:allMessages){
+            System.out.println(message);
+        }
+    }
+
+    private static List<Message> getAllSMS() throws IOException {
+        SmsService sms = AfricasTalking.getService(AfricasTalking.SERVICE_SMS);
+        return sms.fetchMessages(0);
     }
 
     private static List<Recipient> sendSMS(String[] recipients) throws IOException {
